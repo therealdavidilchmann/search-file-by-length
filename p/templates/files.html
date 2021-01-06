@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/d1273e4445.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+    <style>
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.all-files {
+    display: flex;
+    flex-direction: column;
+}
+
+.table {
+    border-collapse: collapse;
+    width: 80%;
+    margin-left: 10%;
+}
+  
+.table td, .table th {
+    border: 2px solid #000;
+    padding: 15px;
+    font-size: 20px;
+}
+  
+.table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.btn-rename {
+    border: 0;
+    background-color: white;
+}
+
+.btn-rename:active, .btn-rename:focus {
+    border: 0;
+    outline: 0;
+}
+
+.forms {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.path-label {
+    margin-bottom: 5px;
+}
+
+.name-label {
+    margin-top: 5px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="settings">
+        <a id="länge-ändern-btn">Länge ändern</a>
+        <form action="/change_settings" method="post">
+            <div id="first-part" style="display: none;">
+                <label for="länge">Neue Länge</label>
+                <input type="text" name="länge" value="{{ länge }}">
+            </div>
+
+        </form>
+    </div>
+
+
+    <table class="table">
+        <tr>
+            <th>Path</th>
+            <th>Länge</th>
+            <th>Actions</th>
+        </tr>
+        {% for file in data %}
+            <tr class="file-container">
+                <td class="path">
+                    <p class="path-label">{{ file.path }}</p>
+                    <hr>
+                    <p class="name-label">{{ file.name }}</p>
+                </td>
+                <td class="length">{{ file.length }}</td>
+                <td class="actions">
+                    <div class="forms">
+                        <form action="/rename/get_new_name" method="POST">
+                            <input type="hidden" name="path" value="{{ file.path }}">
+                            <input type="hidden" name="name" value="{{ file.name }}">
+                            <button type="submit" class="btn-rename"><em class="far fa-edit" style="font-size: 25px;"></em></button>
+                        </form>
+                        <form action="/open_explorer" method="POST">
+                            <input type="hidden" name="path" value="{{ file.path }}">
+                            <input type="hidden" name="name" value="{{ file.name }}">
+                            <button type="submit" class="btn-rename"><em class="fa fa-chain" style="font-size: 25px;"></em></button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="{{ url_for("static", filename="jquery.js") }}">\x3C/script>')
+    </script>
+    <script src="{{ url_for('static', filename='files.js') }}"></script>
+</body>
+</html>

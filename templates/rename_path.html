@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.old-name, .new-name-label {
+    font-size: 25px;
+    margin-top: 20px;
+}
+
+.new-name-input {
+    margin-top: 20px;
+    font-size: 15px;
+    padding: 8px;
+    margin-left: 40px;
+    border: 0;
+    outline: 0;
+    box-shadow: 0 0 5px rgb(200, 200, 200);
+}
+
+.new-name-submit {
+    font-size: 15px;
+    padding: 10px;
+    background-color: blue;
+    border-radius: 5px;
+    margin-left: 178px;
+    margin-top: 30px;
+    border: 0;
+    outline: 0;
+    color: white;
+}
+
+.new-name-submit:active, .new-name-submit:focus, .new-name-input:active, .new-name-input:focus {
+    border: 0;
+    outline: 0;
+}
+
+.title {
+    margin: 20px;
+    font-size: 35px;
+}
+
+body {
+    padding: 20px;
+}
+    </style>
+</head>
+<body>
+    <h1 class="title">Rename file</h1>
+    <hr>
+    <form action="/rename" method="post">
+        <input type="hidden" name="original_path" value="{{ path }}">
+        <input type="hidden" name="original_name" value="{{ file }}">
+        <p class="old-name">Alter Name: <span style="margin-left: 50px;">{{ name }}</span></p>
+        <label for="new_name" class="new-name-label">Neuer Name: </label>
+        <input type="text" name="new_name" class="new-name-input">
+        <br>
+        <input type="submit" value="Rename" class="new-name-submit">
+    </form>
+</body>
+</html>
